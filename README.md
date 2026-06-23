@@ -1,18 +1,14 @@
 # 📊 CodePulse — Engineering Intelligence Platform
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12" />
-  <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 16" />
-  <img src="https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/Redis-7-DC143C?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
-  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License MIT" />
-</p>
+![Python 3.12](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python&logoColor=white)
+![Next.js 16](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-7-DC143C?style=for-the-badge&logo=redis&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![License MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-<p align="center">
-  A high-performance, enterprise-grade Engineering Intelligence and Decision Support Platform that connects directly to GitHub API endpoints to ingest, normalize, and precompute software development lifecycle (SDLC) metrics. It translates telemetry logs into concrete management action recommendations inside a real-time <b>Command Center</b>.
-</p>
+CodePulse is a high-performance, enterprise-grade Engineering Intelligence and Decision Support Platform that connects directly to GitHub API endpoints to ingest, normalize, and precompute software development lifecycle (SDLC) metrics. It translates telemetry logs into concrete management action recommendations inside a real-time **Command Center**.
 
 ---
 
@@ -68,9 +64,9 @@ The **Intelligence Plane** aggregates raw data points into actionable insights.
 
 * **Anomaly Detector (`anomalies/anomaly_detector.py`)**: Scans daily aggregations using statistical controls to flag anomalies:
   * **WIP Overload**: Open PR volume exceeding 2.5x weekly throughput.
-  * **Cycle Time Spikes**: Individual merged PRs exceeding 2 standard deviations ($+2\sigma$) from the 30-day mean.
-  * **Reviewer Bottlenecks**: Single reviewers handling $>50\%$ of reviews.
-  * **PR Size Exceptions**: Submissions containing $>500$ lines changed.
+  * **Cycle Time Spikes**: Individual merged PRs exceeding 2 standard deviations (+2σ) from the 30-day mean.
+  * **Reviewer Bottlenecks**: Single reviewers handling >50% of reviews.
+  * **PR Size Exceptions**: Submissions containing >500 lines changed.
 
 * **Insight Service (`insights/insight_service.py`)**: Formulates actionable recommendations using a 3-layer reasoning model:
   1. *Rule Engine (Deterministic)*: Flags immediate process bottlenecks.
@@ -121,8 +117,8 @@ Allowed Rate (Req/Sec):
   R = (Q - B) / T
 ```
 
-* If $Q \le B$, the scheduler halts all execution, waiting until the rate limit window resets.
-* If $Q > B$, requests are paced using dynamic sleep intervals ($1/R$ seconds) between consecutive API requests.
+* If Q <= B, the scheduler halts all execution, waiting until the rate limit window resets.
+* If Q > B, requests are paced using dynamic sleep intervals (1/R seconds) between consecutive API requests.
 
 ---
 
@@ -180,8 +176,8 @@ This command builds the frontend and backend applications, sets up PostgreSQL an
 ```bash
 docker compose up -d --build
 ```
-* **Frontend Command Center**: [http://localhost:3000](http://localhost:3000)
-* **Backend API Docs (Swagger UI)**: [http://localhost:8000/docs](http://localhost:8000/docs)
+* **Frontend Command Center**: http://localhost:3000
+* **Backend API Docs (Swagger UI)**: http://localhost:8000/docs
 
 ### 3. Launching Bare-Metal (Manual Installation)
 
@@ -207,7 +203,7 @@ cd frontend
 npm install
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your web browser.
+Open http://localhost:3000 in your web browser.
 
 ---
 
@@ -235,18 +231,18 @@ npx vitest run
 Since the frontend is built using Next.js, it can be deployed directly to Vercel:
 
 ### 1. Project Configuration
-* **Framework Preset**: `Next.js`
-* **Root Directory**: `frontend` (Ensure Vercel targets the frontend subdirectory)
-* **Build Command**: `npm run build`
-* **Output Directory**: `.next`
+* **Framework Preset**: Next.js
+* **Root Directory**: frontend (Ensure Vercel targets the frontend subdirectory)
+* **Build Command**: npm run build
+* **Output Directory**: .next
 
 ### 2. Environment Variables
 Add these values in the Vercel Dashboard under **Settings > Environment Variables**:
-* `NEXT_PUBLIC_API_URL`: Your backend endpoint (e.g., `https://api.codepulse.yourdomain.com/api/v1`).
+* `NEXT_PUBLIC_API_URL`: Your backend endpoint (e.g., https://api.codepulse.yourdomain.com/api/v1).
 * `AUTH_GITHUB_ID`: Your GitHub OAuth App Client ID.
 * `AUTH_GITHUB_SECRET`: Your GitHub OAuth App Client Secret.
 * `AUTH_SECRET`: A secure, randomly generated 32-character encryption secret.
-* `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., `https://codepulse-dashboard.vercel.app`).
+* `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., https://codepulse-dashboard.vercel.app).
 
 ### 3. API Rewrites/Proxy Configuration (Optional)
 To route backend requests through the same domain and bypass CORS issues, add rewrite configurations in [frontend/next.config.ts](file:///c:/Users/Yusuf/Desktop/codepulse/frontend/next.config.ts):
@@ -275,5 +271,3 @@ export default nextConfig;
 Distributed under the **MIT License**. See [LICENSE](file:///c:/Users/Yusuf/Desktop/codepulse/LICENSE) for more details.
 
 Created and maintained by **Yusuf Çalışır**.
-#   C o d e P u l s e -  
- 
