@@ -8,6 +8,9 @@
 ![Docker](https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![License MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
+🔗 **GitHub Repository:** [https://github.com/yusufcalisir/CodePulse](https://github.com/yusufcalisir/CodePulse)  
+🚀 **Live Production Site:** [https://code-pulse-kappa.vercel.app](https://code-pulse-kappa.vercel.app)  
+
 CodePulse is a high-performance, enterprise-grade Engineering Intelligence and Decision Support Platform that connects directly to GitHub API endpoints to ingest, normalize, and precompute software development lifecycle (SDLC) metrics. It translates telemetry logs into concrete management action recommendations inside a real-time **Command Center**.
 
 ---
@@ -242,7 +245,7 @@ Add these values in the Vercel Dashboard under **Settings > Environment Variable
 * `AUTH_GITHUB_ID`: Your GitHub OAuth App Client ID.
 * `AUTH_GITHUB_SECRET`: Your GitHub OAuth App Client Secret.
 * `AUTH_SECRET`: A secure, randomly generated 32-character encryption secret.
-* `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., https://codepulse-dashboard.vercel.app).
+* `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., https://code-pulse-kappa.vercel.app).
 
 ### 3. API Rewrites/Proxy Configuration (Optional)
 To route backend requests through the same domain and bypass CORS issues, add rewrite configurations in [frontend/next.config.ts](file:///c:/Users/Yusuf/Desktop/codepulse/frontend/next.config.ts):
