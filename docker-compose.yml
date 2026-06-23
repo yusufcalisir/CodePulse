@@ -1,0 +1,92 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: codepulse-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: codepulse
+      POSTGRES_USER: codepulse
+      POSTGRES_PASSWORD: codepulse
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codepulse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - codepulse-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: codepulse-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - codepulse-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: codepulse-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://codepulse:codepulse@db:5432/codepulse
+      DATABASE_URL_SYNC: postgresql://codepulse:codepulse@db:5432/codepulse
+      REDIS_URL: redis://redis:6379/0
+      CORS_ORIGINS: http://localhost:3000
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      # OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks:
+      - codepulse-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: codepulse-frontend
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+      AUTH_GITHUB_ID: ${AUTH_GITHUB_ID:-}
+      AUTH_GITHUB_SECRET: ${AUTH_GITHUB_SECRET:-}
+      AUTH_SECRET: ${AUTH_SECRET:-your_32_char_auth_secret_here}
+      NEXTAUTH_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - codepulse-network
+
+volumes:
+  pgdata:
+    name: codepulse-pgdata
+
+networks:
+  codepulse-network:
+    name: codepulse-network

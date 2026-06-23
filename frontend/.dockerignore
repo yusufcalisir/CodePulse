@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+build/
+.env*
+!.env.example
+src/__tests__/
+.gitignore
+tsconfig.tsbuildinfo
+eslint.config.mjs
+vitest.config.ts
+Dockerfile
+.dockerignore
+README.md
