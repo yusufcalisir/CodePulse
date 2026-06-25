@@ -1,4 +1,4 @@
-# 📊 CodePulse — Engineering Intelligence Platform
+# 📊 CodePulse Engineering Intelligence Platform
 
 ![Python 3.12](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python&logoColor=white)
 ![Next.js 16](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs&logoColor=white)
